@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[]) {
 
-    GrpcClient grpcClient;
+    GrpcClient grpcClient("0.0.0.0:9906");
 
-    grpcClient.sendRequest("0.0.0.0:9906");
+    grpcClient.sendRequest("hello");
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

@@ -8,16 +8,21 @@
 #include <string>
 #include "grpcpp/create_channel.h"
 #include "../api/helloworld.grpc.pb.h"
+#include "../service/HandleResponse.h"
+
 
 using namespace std;
 using namespace grpc;
 using namespace helloworld;
 
 class GrpcClient {
+private:
+    unique_ptr<Greeter::Stub> helloStub;
 
 public:
 
-    void sendRequest(string serveruri);
+    GrpcClient(string serveruri);
+    void sendRequest(string msg);
 
 };
 

@@ -3,27 +3,26 @@
 //
 
 #include "GrpcClient.h"
-#include "../service/HandleResponse.h"
 
-void GrpcClient::sendRequest(string serveruri) {
-
+GrpcClient::GrpcClient(string serveruri) {
     // create channel
     auto channel = CreateChannel (serveruri, InsecureChannelCredentials());
-
     // creat stub
+    this->helloStub =  Greeter::NewStub(channel);
+}
 
-    auto stub = Greeter::NewStub(channel);
+void GrpcClient::sendRequest(string msg) {
 
     ClientContext clientContext;
     HelloRequest helloRequest;
     HelloResponse helloResponse;
 
     // build request
-    helloRequest.set_myname("hello");
+    helloRequest.set_myname(msg);
 
     // Using stub to perform a remote procedure call, e.g. sending request
     // Using stub to execute the function, SayHello(), which is implemented on server
-    Status status = stub->SayHello(&clientContext, helloRequest, &helloResponse);
+    Status status = helloStub->SayHello(&clientContext, helloRequest, &helloResponse);
 
     HandleResponse handleResponse;
 
