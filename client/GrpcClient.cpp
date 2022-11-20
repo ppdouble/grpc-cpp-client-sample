@@ -27,11 +27,12 @@ void GrpcClient::sendRequest(string msg) {
     HandleResponse handleResponse;
 
     if (status.ok()) {
-        cout << " RPC SUCCESS " << endl;
+        cout << "RPC SUCCESS " << endl;
         // handle response
         handleResponse.handleRes(&helloResponse);
     } else {
         // rpc failed
         cout << "Remote procedure call FAIL" << endl;
+        cout << status.error_code() << ": " << status.error_message() << endl;
     }
 }
